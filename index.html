@@ -17,18 +17,21 @@
   </header>
   <main>
     <aside class="side-bar">
-      <form>
+      <article>
         <h3>Task Title</h3>
         <input type="text" class="input__title">
-        <div class="side-bar__task-display"></div>
-        <h3>Task Item</h3>
-        <div class="add-task-field">
-          <input type="text" class="input__task">
-          <button class="btn__add-task">+</button>
+        <div class="side-bar__task-display">
+          <ul>
+          </ul>
         </div>
+        <h3>Task Item</h3>
+        <form class="add-task-field">
+          <input type="text" name="item" class="input__task">
+          <input type="submit" class="btn__add-task" value="+">
+        </form>
         <button class="btn__make-task">Make Task List</button>
         <button class="btn__clear">Clear All</button>
-      </form>
+      </article>
       <button class="btn__urgency-filter">Filter by Urgency</button>
     </aside>
     <section class="main-container">

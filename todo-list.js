@@ -9,21 +9,26 @@ class ToDoList {
 
   saveToStorage(createTasks) {
     var stringified = JSON.stringify(createTasks);
-    console.log(strinified);
       localStorage.setItem("array", stringified);
   }
 
-  deleteFromStorage() {
-
+  deleteFromStorage(index) {
+    lists.splice(index, 1);
+    this.saveToStorage(createTasks);
   }
 
   updateToDo() {
     //update todo's title and urgency
-
+    this.saveToStorage(createTasks);
   }
 
   updateTask() {
     //update tasks content and if it is completed
+    this.saveToStorage(createTasks);
+  }
 
+  urgent() {
+    this.urgent = !this.urgent;
+    this.saveToStorage(createTasks);
   }
 }
