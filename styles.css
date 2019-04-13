@@ -146,6 +146,21 @@ form {
   padding: 0;
 }
 
+.delete-item {
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  margin-right: 10px;
+  width: 20px;
+}
+
+p {
+  display: flex;
+  justify-content: right;
+  margin-left: 20px;
+  color: #ffffff;
+}
+
 /* ----- main container ----- */
 
 section {
