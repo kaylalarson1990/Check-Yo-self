@@ -31,38 +31,56 @@ if(createTasks.length != 0) {
 
 addItems.addEventListener("submit", addToList);
 
-makeTaskListBtn.addEventListener("click", addTaskCard);
+makeTaskListBtn.addEventListener("click", manyFunctions);
 
 clearAllBtn.addEventListener("click", clearAll);
 
+// deleteCardBtn.addEventListener("click", deleteCard);
+
 // functions //
 
-function saveNewTask(id, title, tasks, urgent) {
-  var newTask = new ToDoList(Date.now(), taskTitleInput.value, taskItemInput.value);
-  createTasks.push(newTask);
-  newTask.saveToStorage(createTasks);
-  addTaskCard(newTask);
-}
+// function saveNewTask(id, title, tasks, urgent) {
+//   var newTask = new ToDoList(Date.now(), taskTitleInput.value, taskItemInput.value);
+//   createTasks.push(newTask);
+//   newTask.saveToStorage(createTasks);
+//   addTaskCard(newTask);
+// }
 
-function createTaskItem() {
+// function createTaskItem() {
   
-}
+// }
 
 function addToList(e) {
   e.preventDefault();
   newTaskDisplay.innerHTML += `<p><img src="images/delete.svg" class="delete-item">${taskItemInput.value}
   </p>`
-  tasks.push(taskItemInput.value);
+  addItemsToArray(taskItemInput.value);
   this.reset();
 }
 
+function addItemsToArray() {
+  var newObject = new Items(taskItemInput.value);
+  tasks.push(newObject);
+}
+
+function createToDo() {
+  var makeNewCard = new ToDoList(taskTitleInput.value, tasks);
+  createTasks.push(makeNewCard);
+  tasks = [];
+}
+
+function manyFunctions() {
+  addTaskCard(tasks);
+  createToDo(taskTitleInput.value, tasks);
+  console.log(createTasks)
+}
 
 function addTaskCard(tasks) {
   taskPlaceholder.classList.add("hidden");
   mainContainer.innerHTML = `<article class="task__list-card" data-id="${tasks.id}">
-        <h2 class="border__card-title">${tasks.title}</h2>
+        <h2 class="border__card-title">${taskTitleInput.value}</h2>
         <ul class="task__list">
-          <p class="task__list-item">${tasks.body}</p>
+          <p class="task__list-item"><img src="images/checkbox.svg" class="check-item">${createTasks}</p>
         </ul>
         <div class="btns__task-card">
           <a class= "urgent">
@@ -72,9 +90,14 @@ function addTaskCard(tasks) {
             <img src="images/delete.svg" class="btn__delete-card" alt="Delete Card Button"><span class="delete-text">DELETE</span>
           </a>
         </div>
-      </article>`
+      </article>` 
+      + mainContainer.innerHTML;
 }
 
 function clearAll() {
   newTaskDisplay.innerHTML = "";
+}
+
+function deleteCard() {
+
 }
