@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Yo'self | Kayla Larson | 1903 FE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <header>
+    <h1>CHECK <span class="word-yo">YO' </span>SELF</h1>
+    <div class="search-field">
+      <button class="btn__search">
+        <i class="fa fa-search"></i>
+      </button>
+      <input type="text" placeholder="Search" class="input__search">
+    </div>
+  </header>
+  <main>
+    <aside class="side-bar">
+      <form>
+        <h3>Task Title</h3>
+        <input type="text" class="input__title">
+        <h3>Task Item</h3>
+        <div class="add-task-field">
+          <input type="text" class="input__task">
+          <button class="btn__add-task">+</button>
+        </div>
+        <button class="btn__make-task">Make Task List</button>
+        <button class="btn__clear">Clear All</button>
+      </form>
+      <button class="btn__filter">Filter by Urgency</button>
+    </aside>
+    <section class="main-container">
+      <article class="task__list-card">
+        <h2 class="border__card-title">Task Title</h2>
+        <ul class="task__list">
+          <li class="task__list-item">test words</li>
+        </ul>
+        <button class="task__urgent"></button>
+        <button class="btn__delete-card"></button>
+      </article>
+    </section>
+  </main>
+<script src="todo-list.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+}
+
+header {
+  align-items: center;
+  background-color: #1f1f3d;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 5px;
+}
+
+h1{
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.word-yo {
+  color: #fec40e;
+}
+
+.search-field {
+  display: flex;
+  width: 30%;
+}
+
+.btn__search {
+  background-color: #c7d3d8;
+  border: none;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  color: #1f1f3d;
+  cursor: pointer;
+  font-size: 20px;
+  height: 40px;
+  padding: 10px;
+}
+
+.input__search {
+  border: none;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size: 16px;
+  height: 40px;
+  width: 100%;
+}
+
+/* ----- aside ----- */
+
+aside {
+  background-color: #587a8b;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  padding: 15px;
+}
+
+h3 {
+  color: #faf7f8;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.add-task-field {
+  display: flex;
+  margin: 5px;
+  width: 100%;
+}
+
+.input__task,
+.btn__add-task
+ {
+  border: none;
+
+}
+
+.input__task {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  width: 100%;
+}
+
+.btn__add-task {
+  background-color: #1f1f3d;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 10px;
+
+}
+
+.btn__make-task,
+.input__title,
+.btn__clear,
+.btn__filter {
+  border: none;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+.btn__clear {
+  margin-bottom: 20px;
+}
+
+.btn__make-task,
+.btn__clear,
+.btn__filter {
+  background-color: #1f1f3d;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.btn__filter {
+  margin-top: 20px;
+}
+
+form {
+  border-bottom: solid 1px black;
+}
+
+/* ----- main container ----- */
+
+section {
+  background-color: #faf7f8;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+h2 {
+  color: #1f1f3d;
+  font-size: 16px;
+}
+
+.border__card-title,
+.task__list {
+  border-bottom: 2px solid #c7d3d8;
+}
+
+
+.task__list-card {
+  border: 2px solid #c7d3d8;
+  height: auto;
+  margin: 20px;
+  width: 250px;
+}
+
