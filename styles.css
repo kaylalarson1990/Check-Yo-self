@@ -1,3 +1,5 @@
+/* ----- global ----- */
+
 * {
   box-sizing: border-box;
 }
@@ -7,6 +9,8 @@ body {
   margin: 0;
   min-height: 100%;
 }
+
+/* ----- header ----- */
 
 main {
   display: flex;
@@ -18,8 +22,7 @@ header {
   background-color: #1f1f3d;
   display: flex;
   justify-content: space-between;
-  margin: 0;
-  padding: 5px;
+  padding: 0 10px;
 }
 
 h1{
@@ -54,6 +57,7 @@ h1{
   border-top-right-radius: 3px;
   font-size: 16px;
   height: 40px;
+  padding: 10px;
   width: 100%;
 }
 
@@ -80,11 +84,15 @@ h3 {
   width: 100%;
 }
 
-.input__task,
+
 .btn__add-task
  {
   border: none;
 
+}
+
+.input__title {
+  border: 1px solid #1f1f3d;
 }
 
 .input__task {
@@ -101,13 +109,13 @@ h3 {
   font-size: 16px;
   font-weight: 300;
   padding: 10px;
-
 }
 
 .btn__make-task,
 .input__title,
 .btn__clear,
-.btn__filter {
+.btn__filter,
+.btn__urgency-filter {
   border: none;
   border-radius: 3px;
   margin: 5px;
@@ -121,19 +129,21 @@ h3 {
 
 .btn__make-task,
 .btn__clear,
-.btn__filter {
+.btn__filter,
+.btn__urgency-filter {
   background-color: #1f1f3d;
   color: #ffffff;
   font-size: 16px;
   font-weight: 400;
 }
 
-.btn__filter {
+.btn__urgency-filter {
   margin-top: 20px;
 }
 
 form {
   border-bottom: solid 1px black;
+  padding: 0;
 }
 
 /* ----- main container ----- */
@@ -145,16 +155,23 @@ section {
   width: 100%;
 }
 
+.task-placeholder {
+  font-weight: 700;
+  color: #1f1f3d;
+  font-size: 3.5em;
+  text-align: center;
+}
+
 h2 {
   color: #1f1f3d;
   font-size: 16px;
+  margin-left: 10px;
 }
 
-.border__card-title,
 .task__list {
   border-bottom: 2px solid #c7d3d8;
+  border-top: 2px solid #c7d3d8;
 }
-
 
 .task__list-card {
   border: 2px solid #c7d3d8;
@@ -163,3 +180,26 @@ h2 {
   width: 250px;
 }
 
+.btn__urgent-task,
+.btn__delete-card {
+  height: 20px;
+  width: 20px;
+}
+
+.urgent-text,
+.delete-text {
+  font-size: 10px;
+}
+
+a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btns__task-card {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
