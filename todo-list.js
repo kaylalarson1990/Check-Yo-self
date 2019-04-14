@@ -1,15 +1,14 @@
 class ToDoList {
-  constructor(title, tasks) {
+  constructor(id, title, urgent, tasks) {
+    this.id = id;
     this.title = title;
-    this.tasks = tasks;
-    // this.urgent = urgent || false;
-    this.id = Date.now();
+    this.urgent = false;
+    this.tasks = tasks || [];
     // this.urgentIcon = urgentIcon || "images/delete-active.svg"
   }
 
   saveToStorage(createTasks) {
-    var stringified = JSON.stringify(createTasks);
-      localStorage.setItem("array", stringified);
+      localStorage.setItem("saveTasks", JSON.stringify(createTasks));
   }
 
   deleteFromStorage(index) {
@@ -30,13 +29,5 @@ class ToDoList {
   urgent() {
     this.urgent = !this.urgent;
     this.saveToStorage(createTasks);
-  }
-}
-
-class Items {
-  constructor(content) {
-    this.content = content;
-    this.done = false;
-    this.id = Date.now();
   }
 }
