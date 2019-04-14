@@ -7,7 +7,8 @@
 body {
   font-family: "Open Sans", sans-serif;
   margin: 0;
-  min-height: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .hidden {
@@ -19,6 +20,7 @@ body {
 main {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 header {
@@ -26,12 +28,13 @@ header {
   background-color: #1f1f3d;
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 h1{
   color: #ffffff;
   font-weight: 800;
+  margin:0;
 }
 
 .word-yo {
@@ -70,8 +73,6 @@ h1{
 
 aside {
   background-color: #587a8b;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   width: 30%;
   padding: 15px;
@@ -95,7 +96,6 @@ a {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 39px;
   justify-content: center;
 }
 
@@ -157,11 +157,13 @@ a {
   width: 20px;
 }
 
-p {
+li {
+  list-style-type: none;
   color: #ffffff;
   display: flex;
   margin-left: 20px;
 }
+
 
 /* ----- main container ----- */
 
@@ -169,6 +171,7 @@ section {
   background-color: #faf7f8;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -182,7 +185,7 @@ section {
 h2 {
   color: #1f1f3d;
   font-size: 16px;
-  margin-left: 10px;
+  padding: 15px;
 }
 
 .task__list-item {
@@ -192,14 +195,10 @@ h2 {
   margin-left: 10px;
 }
 
-.task__list {
-  border-bottom: 2px solid #c7d3d8;
-  border-top: 2px solid #c7d3d8;
-  padding: 0;
-}
-
 .task__list-card {
   border: 2px solid #c7d3d8;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
   height: auto;
   margin: 20px;
   width: 250px;
@@ -223,8 +222,14 @@ h2 {
   width: 100%;
 }
 
+.border__card-title {
+  border-bottom: 2px solid #c7d3d8;
+  margin: 0;
+}
+
 .btns__task-card {
+  border-top: 2px solid #c7d3d8;
   display: flex;
   justify-content: space-between;
-  margin: 5px;
+  /*margin: 5px;*/
 }

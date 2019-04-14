@@ -1,8 +1,10 @@
 // query selectors //
 var searchBtn = document.querySelector(".btn__search");
 var searchInput = document.querySelector(".input__search");
+var sideBar = document.querySelector(".side-bar");
 var taskTitleInput = document.querySelector(".input__title");
 var newTaskDisplay = document.querySelector(".side-bar__task-display");
+var asideNav = document.querySelector(".side-bar");
 var deleteTaskItem = document.querySelector(".delete-item")
 var addItems = document.querySelector(".add-task-field");
 var taskItemInput = document.querySelector(".input__task");
@@ -17,71 +19,98 @@ var taskList = document.querySelector(".task__list-item");
 var urgentTaskBtn = document.querySelector(".btn__urgent-task");
 var deleteCardBtn = document.querySelector(".btn__delete-card");
 var taskPlaceholder = document.querySelector(".task-placeholder");
-var tasks = [];
-var createTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+var createTasks = JSON.parse(localStorage.getItem("saveTasks")) || [];
 
-// starting //
 
-if(createTasks.length != 0) {
-  onLoad();
-  pageRefresh(createTasks);
-}
 
 // event listeners //
+window.addEventListener("load", onStart);
 
 addItems.addEventListener("submit", addToList);
 
-makeTaskListBtn.addEventListener("click", manyFunctions);
+taskTitleInput.addEventListener("input", checkInput)
+
+taskItemInput.addEventListener("input", checkInput);
+
+makeTaskListBtn.addEventListener("click", createNewToDo);
 
 clearAllBtn.addEventListener("click", clearAll);
 
-// deleteCardBtn.addEventListener("click", deleteCard);
+newTaskDisplay.addEventListener("click", clearList);
 
-// functions //
+// function when first loading page //
+function onStart() {
+  disableButton(addTaskBtn);
+  disableButton(makeTaskListBtn);
+  disableButton(clearAllBtn);
+  newInstance(createTasks);
+  onLoadTodos();
+}
 
-// function saveNewTask(id, title, tasks, urgent) {
-//   var newTask = new ToDoList(Date.now(), taskTitleInput.value, taskItemInput.value);
-//   createTasks.push(newTask);
-//   newTask.saveToStorage(createTasks);
-//   addTaskCard(newTask);
+function checkInput() {
+  if(taskTitleInput.value === "" || taskItemInput.value === "") {
+    disableButton(addTaskBtn);
+    disableButton(makeTaskListBtn);
+    disableButton(clearAllBtn);
+  } else {
+    enableButton(addTaskBtn);
+    enableButton(makeTaskListBtn);
+    enableButton(clearAllBtn);
+  }
+}
+
+function onLoadTodos() {
+  createTasks.forEach(function(todoCard) {
+    addTaskCard(todoCard);
+  });
+}
+
+// function reinstantiating new todo list //
+function newInstance(todoList) {
+  createTasks = [];
+  todoList.forEach(function(todo) {
+    var newList = new ToDoList(todo.id, todo.title, todo.urgent, todo.tasks);
+    createTasks.push(newList);
+  });
+}
+
+
+// main functions //
+
+// function saveCardToStorage() {
+//   createToDo();
+//   var list = createTasks[createTasks.length - 1];
+//   addTaskCard(list);
+//   removeFromList();
 // }
 
-// function createTaskItem() {
-  
-// }
+function createNewToDo(e) {
+  e.preventDefault();
+  var taskArray = Array.prototype.slice.call(document.querySelectorAll(".new-task-item"));
+  var iterateTaskArray = taskArray.map(function(list) {
+    return list = {content: list.innerText, checked: false}
+  });
+  var newList = new ToDoList(Date.now(), taskTitleInput.value, false, iterateTaskArray);
+  addTaskCard(newList);
+  createTasks.push(newList);
+  newList.saveToStorage(createTasks);
+}
 
 function addToList(e) {
   e.preventDefault();
-  newTaskDisplay.innerHTML += `<p><img src="images/delete.svg" class="delete-item">${taskItemInput.value}
-  </p>`
-  addItemsToArray(taskItemInput.value);
+  newTaskDisplay.innerHTML += `<div>
+    <img src="images/delete.svg" class="delete-item">
+    <li class="new-task-item">${taskItemInput.value}</li></div>`
+  localStorage.setItem("saveTasks", JSON.stringify(taskList));
   this.reset();
 }
 
-function addItemsToArray() {
-  var newObject = new Items(taskItemInput.value);
-  tasks.push(newObject);
-}
-
-function createToDo() {
-  var makeNewCard = new ToDoList(taskTitleInput.value, tasks);
-  createTasks.push(makeNewCard);
-  tasks = [];
-}
-
-function manyFunctions() {
-  addTaskCard(tasks);
-  createToDo(taskTitleInput.value, tasks);
-  console.log(createTasks)
-}
-
-function addTaskCard(tasks) {
+function addTaskCard(newTasks) {
   taskPlaceholder.classList.add("hidden");
-  mainContainer.innerHTML = `<article class="task__list-card" data-id="${tasks.id}">
-        <h2 class="border__card-title">${taskTitleInput.value}</h2>
-        <ul class="task__list">
-          <p class="task__list-item"><img src="images/checkbox.svg" class="check-item">${createTasks}</p>
-        </ul>
+  const newCard = `<article class="task__list-card" data-id="${newTasks.id}">
+        <h2 class="border__card-title">${newTasks.title}</h2>
+        <section class="task__list">
+        </section>
         <div class="btns__task-card">
           <a class= "urgent">
             <img src="images/urgent.svg" class="btn__urgent-task" alt="Urgent Button"><span class="urgent-text">URGENT</span>
@@ -90,14 +119,35 @@ function addTaskCard(tasks) {
             <img src="images/delete.svg" class="btn__delete-card" alt="Delete Card Button"><span class="delete-text">DELETE</span>
           </a>
         </div>
-      </article>` 
-      + mainContainer.innerHTML;
+      </article>`; 
+  mainContainer.insertAdjacentHTML("afterbegin", newCard);
+  newTasks.tasks.forEach(function(list) {
+    document.querySelector(".task__list").insertAdjacentHTML("beforeend",
+      `<div class="task__list">
+          <img src="images/checkbox.svg" class="check-item">
+          <p class="task__list-item">${list.content}</p></div>`);
+  });
+      removeFromList();
 }
 
 function clearAll() {
+  taskTitleInput.value = "";
   newTaskDisplay.innerHTML = "";
 }
 
-function deleteCard() {
+function removeFromList() {
+  taskTitleInput.value = "";
+  newTaskDisplay.innerHTML = "";
+}
 
+function clearList(e) {
+  e.target.closest("div").remove();
+}
+
+function disableButton(button) {
+  button.setAttribute("disabled", "");
+}
+
+function enableButton(button) {
+  button.removeAttribute("disabled");
 }
