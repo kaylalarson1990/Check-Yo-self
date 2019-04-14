@@ -1,10 +1,10 @@
 class ToDoList {
-  constructor(id, title, tasks, urgent, urgentIcon) {
-    this.id = id;
+  constructor(title, tasks) {
     this.title = title;
     this.tasks = tasks;
-    this.urgent = urgent || true;
-    this.urgentIcon = urgentIcon || "images/delete-active.svg"
+    // this.urgent = urgent || false;
+    this.id = Date.now();
+    // this.urgentIcon = urgentIcon || "images/delete-active.svg"
   }
 
   saveToStorage(createTasks) {
@@ -30,5 +30,13 @@ class ToDoList {
   urgent() {
     this.urgent = !this.urgent;
     this.saveToStorage(createTasks);
+  }
+}
+
+class Items {
+  constructor(content) {
+    this.content = content;
+    this.done = false;
+    this.id = Date.now();
   }
 }

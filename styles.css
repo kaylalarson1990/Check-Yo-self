@@ -10,6 +10,10 @@ body {
   min-height: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 /* ----- header ----- */
 
 main {
@@ -57,6 +61,7 @@ h1{
   border-top-right-radius: 3px;
   font-size: 16px;
   height: 40px;
+  margin-right: 5px;
   padding: 10px;
   width: 100%;
 }
@@ -78,24 +83,24 @@ h3 {
   font-weight: 400;
 }
 
-.add-task-field {
-  display: flex;
-  margin: 5px;
-  width: 100%;
-}
-
-
-.btn__add-task
- {
-  border: none;
-
-}
-
 .input__title {
   border: 1px solid #1f1f3d;
 }
 
+article {
+  border-bottom: 1px solid black;
+}
+
+a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 39px;
+  justify-content: center;
+}
+
 .input__task {
+  border: none;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   width: 100%;
@@ -103,11 +108,13 @@ h3 {
 
 .btn__add-task {
   background-color: #1f1f3d;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border: none;
   color: #ffffff;
-  font-size: 16px;
-  font-weight: 300;
+  cursor: pointer;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size: 20px;
+  height: 40px;
   padding: 10px;
 }
 
@@ -141,12 +148,8 @@ h3 {
   margin-top: 20px;
 }
 
-form {
-  border-bottom: solid 1px black;
-  padding: 0;
-}
-
-.delete-item {
+.delete-item,
+.check-item {
   display: flex;
   justify-content: center;
   height: 20px;
@@ -155,10 +158,9 @@ form {
 }
 
 p {
-  display: flex;
-  justify-content: right;
-  margin-left: 20px;
   color: #ffffff;
+  display: flex;
+  margin-left: 20px;
 }
 
 /* ----- main container ----- */
@@ -171,9 +173,9 @@ section {
 }
 
 .task-placeholder {
-  font-weight: 700;
   color: #1f1f3d;
   font-size: 3.5em;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -183,9 +185,17 @@ h2 {
   margin-left: 10px;
 }
 
+.task__list-item {
+  color: #1f1f3d;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
 .task__list {
   border-bottom: 2px solid #c7d3d8;
   border-top: 2px solid #c7d3d8;
+  padding: 0;
 }
 
 .task__list-card {
@@ -206,11 +216,11 @@ h2 {
   font-size: 10px;
 }
 
-a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.add-task-field {
   cursor: pointer;
+  display: flex;
+  margin: 5px;
+  width: 100%;
 }
 
 .btns__task-card {
