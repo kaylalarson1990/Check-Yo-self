@@ -28,12 +28,11 @@ class ToDoList {
   updateTask(click, index) {
     if(click.matches(".task__list-item")) {
       this.tasks[index].content = click.innerText;
-      console.log("test list")
     }
     if(click.matches(".check-item")) {
       this.tasks[index].checked = !this.tasks[index].checked;
-      console.log(this.tasks[index].checked)
     }
     this.saveToStorage(createTasks);
   }
 }
+
