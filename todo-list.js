@@ -2,9 +2,8 @@ class ToDoList {
   constructor(id, title, urgent, tasks) {
     this.id = id;
     this.title = title;
-    this.urgent = false;
+    this.urgent = urgent || false;
     this.tasks = tasks || [];
-    // this.urgentIcon = urgentIcon || "images/delete-active.svg"
   }
 
   saveToStorage(createTasks) {
@@ -12,22 +11,29 @@ class ToDoList {
   }
 
   deleteFromStorage(index) {
-    lists.splice(index, 1);
+    createTasks.splice(index, 1);
     this.saveToStorage(createTasks);
   }
 
-  updateToDo() {
-    //update todo's title and urgency
+  updateToDo(click) {
+    if(click.matches(".input__title")) {
+      this.title = click.innerText;
+    }
+    if(click.matches(".btn__urgent-task")) {
+      this.urgent = !this.urgent;
+    }
     this.saveToStorage(createTasks);
   }
 
-  updateTask() {
-    //update tasks content and if it is completed
-    this.saveToStorage(createTasks);
-  }
-
-  urgent() {
-    this.urgent = !this.urgent;
+  updateTask(click, index) {
+    if(click.matches(".task__list-item")) {
+      this.tasks[index].content = click.innerText;
+      console.log("test list")
+    }
+    if(click.matches(".check-item")) {
+      this.tasks[index].checked = !this.tasks[index].checked;
+      console.log(this.tasks[index].checked)
+    }
     this.saveToStorage(createTasks);
   }
 }

@@ -233,3 +233,17 @@ h2 {
   justify-content: space-between;
   /*margin: 5px;*/
 }
+
+.task__list-checked {
+  font-style: italic;
+  color: #3c6577;
+}
+
+.task__active {
+  background-color: #ffe79d;
+  border-color: #fec40e;
+}
+
+.btn__checkbox-filled {
+  fill: #3c6577;
+}

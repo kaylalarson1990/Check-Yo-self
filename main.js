@@ -36,6 +36,8 @@ makeTaskListBtn.addEventListener("click", createNewToDo);
 
 clearAllBtn.addEventListener("click", clearAll);
 
+mainContainer.addEventListener("click", bottomButtons);
+
 newTaskDisplay.addEventListener("click", clearList);
 
 // function when first loading page //
@@ -65,6 +67,7 @@ function onLoadTodos() {
   });
 }
 
+
 // function reinstantiating new todo list //
 function newInstance(todoList) {
   createTasks = [];
@@ -76,14 +79,6 @@ function newInstance(todoList) {
 
 
 // main functions //
-
-// function saveCardToStorage() {
-//   createToDo();
-//   var list = createTasks[createTasks.length - 1];
-//   addTaskCard(list);
-//   removeFromList();
-// }
-
 function createNewToDo(e) {
   e.preventDefault();
   var taskArray = Array.prototype.slice.call(document.querySelectorAll(".new-task-item"));
@@ -94,6 +89,7 @@ function createNewToDo(e) {
   addTaskCard(newList);
   createTasks.push(newList);
   newList.saveToStorage(createTasks);
+  clearAll();
 }
 
 function addToList(e) {
@@ -107,8 +103,9 @@ function addToList(e) {
 
 function addTaskCard(newTasks) {
   taskPlaceholder.classList.add("hidden");
-  const newCard = `<article class="task__list-card" data-id="${newTasks.id}">
-        <h2 class="border__card-title">${newTasks.title}</h2>
+  if(newTasks.urgent === false) {
+  var newCard = `<article class="task__list-card" data-id="${newTasks.id}">
+        <h2 class="border__card-title" contenteditable=true>${newTasks.title}</h2>
         <section class="task__list">
         </section>
         <div class="btns__task-card">
@@ -120,15 +117,110 @@ function addTaskCard(newTasks) {
           </a>
         </div>
       </article>`; 
-  mainContainer.insertAdjacentHTML("afterbegin", newCard);
+      mainContainer.insertAdjacentHTML("afterbegin", newCard);
+    }
+    if(newTasks.urgent === true) {
+      var activeCard = `<article class="task__active task__list-card" data-id="${newTasks.id}">
+        <h2 class="border__card-title" contenteditable=true>${newTasks.title}</h2>
+        <section class="task__list">
+        </section>
+        <div class="btns__task-card">
+          <a class= "urgent">
+            <img src="images/urgent.svg" class="btn__urgent-task" alt="Urgent Button"><span class="urgent-text">URGENT</span>
+          </a>
+          <a class="delete">
+            <img src="images/delete.svg" class="btn__delete-card" alt="Delete Card Button"><span class="delete-text">DELETE</span>
+          </a>
+        </div>
+      </article>`; 
+      mainContainer.insertAdjacentHTML("afterbegin", activeCard);
+    }
   newTasks.tasks.forEach(function(list) {
+    if(list.checked === false) {
     document.querySelector(".task__list").insertAdjacentHTML("beforeend",
-      `<div class="task__list">
+      `<div class="task__list task__list-checked" data-id=${list.id}>
           <img src="images/checkbox.svg" class="check-item">
-          <p class="task__list-item">${list.content}</p></div>`);
+          <p class="task__list-item" contenteditable=true>${list.content}</p></div>`);
+    } else {
+    document.querySelector(".task__list").insertAdjacentHTML("beforeend",
+      `<div class="task__list task__list-checked" data-id=${list.id}>
+          <img src="images/checkbox-active.svg" class="check-item">
+          <p class="task__list-item" contenteditable=true>${list.content}</p></div>`);
+    }
   });
       removeFromList();
 }
+
+function checkTask(click, index) {
+  var todoList = createTasks[index];
+  var findId = click.parentNode.parentNode.dataset.id;
+  var findIndex = todoList.tasks.findIndex(function(list) {
+  return list.id === findId;
+  });
+  var taskList = todoList.tasks[findIndex];
+  if(taskList.checked === false) {
+    click.setAttribute("src", "images/checkbox-active.svg");
+    click.parentNode.classList.add("task__list-checked");
+    click.classList.add("btn__checkbox-filled")
+  }
+  if(taskList.checked === true) {
+    click.setAttribute("src", "images/checkbox.svg");
+    click.parentNode.classList.remove("task__list-checked");
+    click.classList.remove("btn__checkbox-filled");
+  }
+  todoList.updateTask(click, index);
+}
+
+function urgentButton(click, index) {
+  var todoList = createTasks[index];
+  if(taskList.urgent === false) {
+    click.setAttribute("src", "images/urgent-active.svg");
+    click.parentNode.parentNode.parentNode.classList.add("task__active");
+  }
+  if(taskList.urgent === true) {
+    click.setAttribute("src", "images/urgent.svg");
+    click.parentNode.parentNode.parentNode.classList.remove("task__active");
+  }
+  todoList.updateToDo(click);
+}
+
+function bottomButtons(e) {
+  var click = e.target;
+  var newId = click.parentNode.parentNode.parentNode.dataset.id;
+  var newIndex = getNewIndex(newId);
+  if(click.matches(".btn__delete-card")) {
+    deleteButton(click, index);
+  }
+  if(click.matches(".btn__urgent-task")) {
+    urgentButton(click);
+  }
+  if(click.matches(".check-item")) {
+    checkTask(click, index);
+  }
+}
+
+function getNewIndex(newId) {
+  index = createTasks.findIndex(function(list) {
+    return list.id == newId;
+  });
+  return index;
+}
+
+function deleteButton(click, index) {
+  var todoList = createTasks[index];
+  console.log(todoList)
+  click.parentNode.parentNode.parentNode.parentNode.removeChild(click.parentNode.parentNode.parentNode);
+  todoList.deleteFromStorage(index);
+}
+
+function deleteCard(e) {
+  if(e.target.matches(".delete-item")) {
+    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+  }
+}
+
+
+// buttons and clearing inputs //
 
 function clearAll() {
   taskTitleInput.value = "";
