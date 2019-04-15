@@ -7,8 +7,6 @@
 body {
   font-family: "Open Sans", sans-serif;
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
 }
 
 .hidden {
@@ -20,7 +18,8 @@ body {
 main {
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  width: 100vw;
+  overflow: auto;
 }
 
 header {
@@ -74,7 +73,7 @@ h1{
 aside {
   background-color: #587a8b;
   height: 100%;
-  width: 30%;
+  width: 500px;
   padding: 15px;
 }
 
@@ -82,6 +81,15 @@ h3 {
   color: #faf7f8;
   font-size: 12px;
   font-weight: 400;
+}
+
+.side-bar__task-display {
+  display: flex;
+  flex-direction: column;
+}
+
+div {
+  display: flex;
 }
 
 .input__title {
@@ -150,18 +158,19 @@ a {
 
 .delete-item,
 .check-item {
-  display: flex;
-  justify-content: center;
   height: 20px;
-  margin-right: 10px;
-  width: 20px;
+  margin: 20px;
 }
 
 li {
-  list-style-type: none;
   color: #ffffff;
-  display: flex;
-  margin-left: 20px;
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -192,7 +201,6 @@ h2 {
   color: #1f1f3d;
   font-size: 16px;
   font-weight: 400;
-  margin-left: 10px;
 }
 
 .task__list-card {
@@ -201,18 +209,20 @@ h2 {
   flex-wrap: wrap-reverse;
   height: auto;
   margin: 20px;
-  width: 250px;
+  width: 300px;
 }
 
 .btn__urgent-task,
 .btn__delete-card {
   height: 20px;
+  margin: 10px;
   width: 20px;
 }
 
 .urgent-text,
 .delete-text {
   font-size: 10px;
+  margin: 0 10px 10px;
 }
 
 .add-task-field {
@@ -231,10 +241,16 @@ h2 {
   border-top: 2px solid #c7d3d8;
   display: flex;
   justify-content: space-between;
-  /*margin: 5px;*/
+}
+
+.task__list {
+  display: flex;
+  flex-direction: column;
 }
 
 .task__list-checked {
+  display: flex;
+  flex-direction: row;
   font-style: italic;
   color: #3c6577;
 }
@@ -246,4 +262,32 @@ h2 {
 
 .btn__checkbox-filled {
   fill: #3c6577;
+}
+
+/* ------- first media query ---------- */
+
+@media screen and (max-width: 550px) {
+
+  header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .search-field {
+    width: 100%;
+  }
+
+  main {
+    display: block;
+  }
+
+  aside {
+    height: auto;
+    width: auto;
+  }
+
+  section {
+    flex-direction: row;
+  }
 }
