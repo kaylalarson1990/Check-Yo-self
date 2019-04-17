@@ -130,10 +130,10 @@ a {
 .btn__add-task-plus {
   background-color: #1f1f3d;
   border: none;
-  color: #ffffff;
-  cursor: pointer;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   height: 40px;
   padding: 10px;
@@ -161,6 +161,7 @@ a {
 .btn__urgency-filter {
   background-color: #1f1f3d;
   color: #ffffff;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 400;
 }
@@ -171,7 +172,7 @@ a {
 
 .delete-item,
 .check-item {
-  height: 20px;
+  height: 20px; 
   margin: 20px;
 }
 
@@ -227,6 +228,7 @@ h2 {
 
 .btn__urgent-task,
 .btn__delete-card {
+  cursor: pointer;
   height: 20px;
   margin: 10px;
   width: 20px;
@@ -297,8 +299,8 @@ h2 {
 
   header {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
   }
 
   .search-field {

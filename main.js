@@ -151,7 +151,6 @@ function checkTask(click, index) {
 
 function markChecked(click, taskList) {
   if (taskList.checked === false) {
-    console.log(taskList)
     click.setAttribute("src", "images/checkbox-active.svg");
     click.parentNode.classList.add("task-checked");
     click.classList.add("btn__checkbox-filled")
