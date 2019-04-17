@@ -35,12 +35,14 @@ clearAllBtn.addEventListener("click", clearAll);
 mainContainer.addEventListener("click", bottomActiveButtons);
 newTaskDisplay.addEventListener("click", clearList);
 searchInput.addEventListener("keyup", function() { 
-  searchTask(searchInput.value)
+  searchTask(searchInput.value);
 });
+filterUrgencyBtn.addEventListener("click", filterUrgencyTasks);
+
 
 // function when first loading page //
 function onStart() {
-  checkInput()
+  checkInput();
   onLoadTodos();
 }
 
@@ -58,6 +60,7 @@ function checkInput() {
 function onLoadTodos() {
   createTasks.forEach(function(todoCard) {
     addTaskCard(todoCard);
+    newInstance(createTasks);
   });
 }
 
@@ -96,8 +99,8 @@ function addTaskCard(newTasks) {
   taskPlaceholder.classList.add("hidden");
   if(newTasks.urgent === false) {
   var newCard = `<article class="task__list-card" data-id="${newTasks.id}">
-        <h2 class="border__card-title" contenteditable=true>${newTasks.title}</h2>
-        <div class="task__list">
+        <h2 class="border__card-title">${newTasks.title}</h2>
+        <div class="task__list-middle flex">
         </div>
         <div class="btns__task-card">
           <a class= "urgent">
@@ -112,12 +115,12 @@ function addTaskCard(newTasks) {
     }
     if(newTasks.urgent === true) {
       var activeCard = `<article class="task__active task__list-card" data-id="${newTasks.id}">
-        <h2 class="border__card-title" contenteditable=true>${newTasks.title}</h2>
-        <div class="task__list">
+        <h2 class="border-active border__card-title">${newTasks.title}</h2>
+        <div class="task__list-checked task__list-middle flex">
         </div>
-        <div class="btns__task-card">
-          <a class= "urgent">
-            <img src="images/urgent.svg" class="btn__urgent-task" alt="Urgent Button"><span class="urgent-text">URGENT</span>
+        <div class="border-active btns__task-card">
+          <a class= "urgent-active">
+            <img src="images/urgent-active.svg" class="btn__urgent-task" alt="Urgent Button"><span class="urgent-text">URGENT</span>
           </a>
           <a class="delete">
             <img src="images/delete.svg" class="btn__delete-card" alt="Delete Card Button"><span class="delete-text">DELETE</span>
@@ -127,11 +130,11 @@ function addTaskCard(newTasks) {
       mainContainer.insertAdjacentHTML("afterbegin", activeCard);
     }
   newTasks.tasks.forEach(function(list) {
-    list.checked === false ? document.querySelector(".task__list").insertAdjacentHTML("beforeend",`<div class="task__list task__list-checked" data-id=${list.id}>
+    list.checked === false ? document.querySelector(".task__list-middle").insertAdjacentHTML("beforeend",`<div class="task__list-middle-task flex" data-id=${list.id}>
       <img src="images/checkbox.svg" class="check-item">
-      <p class="task__list-item" contenteditable=true>${list.content}</p></div>`) : document.querySelector(".task__list").insertAdjacentHTML("beforeend",`<div class="task__list task__list-checked" data-id=${list.id}>
+      <p class="task__list-item">${list.content}</p></div>`) : document.querySelector(".task__list-middle").insertAdjacentHTML("beforeend",`<div class="task__list-middle-task flex task-checked" data-id=${list.id}>
       <img src="images/checkbox-active.svg" class="check-item">
-      <p class="task__list-item" contenteditable=true>${list.content}</p></div>`);
+      <p class="task__list-item">${list.content}</p></div>`);
     });
       clearFields();
       checkInput();
@@ -148,8 +151,9 @@ function checkTask(click, index) {
 
 function markChecked(click, taskList) {
   if (taskList.checked === false) {
+    console.log(taskList)
     click.setAttribute("src", "images/checkbox-active.svg");
-    click.parentNode.classList.add("task__list-checked");
+    click.parentNode.classList.add("task-checked");
     click.classList.add("btn__checkbox-filled")
   } else { 
     click.setAttribute("src", "images/checkbox.svg");
@@ -162,11 +166,11 @@ function urgentButton(click, index) {
   var todoList = createTasks[index];
   if(todoList.urgent === false) {
     click.setAttribute("src", "images/urgent-active.svg");
-    click.parentNode.parentNode.parentNode.classList.add("task__active");
+    click.parentNode.parentNode.parentNode.classList.add("task__active", "border-active");
   } else {
     (todoList.urgent === true)
     click.setAttribute("src", "images/urgent.svg");
-    click.parentNode.parentNode.parentNode.classList.remove("task__active");
+    click.parentNode.parentNode.parentNode.classList.remove("task__active", "border-active");
   }
   todoList.updateToDo(click);
 }
@@ -200,21 +204,25 @@ function getNewIndex(newId) {
   return index;
 }
 
-// search functions //
 function searchTask(query) {
   query = query.toLowerCase();
-  var title;
-  var content;
+  var title, content;
   var taskList = document.getElementsByClassName("task__list-card");
   for(var i = 0; i < taskList.length; i++) {
     title = taskList[i].querySelector(".border__card-title").innerText;
     content = taskList[i].querySelector(".task__list-item").innerText;
-    if((content.toLowerCase().indexOf(query) > -1) || title.toLowerCase().indexOf(query) > -1) {
-      taskList[i].style.display = "";
-    } else {
-      taskList[i].style.display = "none";
-    }
+    content.toLowerCase().indexOf(query) > -1 || title.toLowerCase().indexOf(query) > -1 ?
+      taskList[i].style.display = "" : taskList[i].style.display = "none";
   }
+}
+
+function filterUrgencyTasks() {
+  var filterSearchResults = createTasks.filter(taskCard => taskCard.urgent === true);
+  mainContainer.innerHTML = "";
+  filterUrgencyBtn.classList.contains("urgent-active") ?
+    filterUrgencyBtn.classList.remove("urgent-active") :
+    filterUrgencyBtn.classList.add("urgent-active");
+    filterSearchResults.forEach(taskCard => addTaskCard(taskCard));
 }
 
 // buttons and clearing inputs //
