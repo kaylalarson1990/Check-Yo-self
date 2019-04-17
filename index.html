@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Check Yo'self | Kayla Larson | 1903 FE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
@@ -26,13 +27,14 @@
         <h3>Task Item</h3>
         <form class="add-task-field">
           <input type="text" name="item" class="input__task">
-          <a href="#">
-            <img src="images/plus.svg" class="btn__add-task" alt="Add Button">
-          </a>
+          <button class="btn__add-task">
+            <img src="images/plus.svg" class="btn__add-task-plus" alt="Add Button">
+          </button>
         </form>
         <button class="btn__make-task">Make Task List</button>
         <button class="btn__clear">Clear All</button>
       </article>
+      <div class="border"></div>
       <button class="btn__urgency-filter">Filter by Urgency</button>
     </aside>
     <section class="main-container">
